@@ -5,7 +5,7 @@ module.exports = app => {
         const category = {
             id: req.body.id,
             name: req.body.name,
-            parentId: req.body.parentId
+            parent_id: req.body.parent_id
         }
 
         if (req.params.id) category.id = req.params.id
@@ -34,10 +34,10 @@ module.exports = app => {
         try {
             existsOrError(req.params.id, 'Código da Categoria não informado.')
 
-            const subcategory = await app.db('categories').where({ parentId: req.params.id })
+            const subcategory = await app.db('categories').where({ parent_id: req.params.id })
             notExistsOrError(subcategory, 'Categoria possui subcategorias.')
 
-            const articles = await app.db('articles').where({ categoryId: req.params.id })
+            const articles = await app.db('articles').where({ category_id: req.params.id })
             notExistsOrError(articles, 'Categoria possui artigos.')
 
             const rowsDeleted = await app.db('categories').where({ id: req.params.id }).del()
@@ -50,18 +50,18 @@ module.exports = app => {
     }
 
     const withPath = categories => {
-        const getParent = (categoryList, parentId) => {
-            const parent = categoryList.filter(category => category.id === parentId)
+        const getParent = (categoryList, parent_id) => {
+            const parent = categoryList.filter(category => category.id === parent_id)
             return parent.length ? parent[0] : null
         }
 
         const categoriesWithPath = categories.map(category => {
             let path = category.name
-            let parent = getParent(categories, category.parentId)
+            let parent = getParent(categories, category.parent_id)
 
             while (parent) {
                 path = `${parent.name} > ${path}`
-                parent = getParent(categories, parent.parentId)
+                parent = getParent(categories, parent.parent_id)
             }
 
             return { ...category, path }
@@ -91,9 +91,9 @@ module.exports = app => {
     }
 
     const toTree = (categories, tree) => {
-        if (!tree) tree = categories.filter(c => !c.parentId)
+        if (!tree) tree = categories.filter(c => !c.parent_id)
         tree = tree.map(parentNode => {
-            const isChild = node => node.parentId == parentNode.id
+            const isChild = node => node.parent_id == parentNode.id
             parentNode.children = toTree(categories, categories.filter(isChild))
             return parentNode
         })

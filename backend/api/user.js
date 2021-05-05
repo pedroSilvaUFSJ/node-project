@@ -12,7 +12,7 @@ module.exports = app => {
         const user = { ...req.body }
         if (req.params.id) user.id = req.params.id
 
-        if (!req.originalUrl.startsWith('/users')) user.admin = false
+        if (!req.original_url.startsWith('/users')) user.admin = false
         if (!req.user || !req.user.admin) user.admin = false
 
         try {
@@ -37,7 +37,7 @@ module.exports = app => {
             app.db('users')
                 .update(user)
                 .where({ id: user.id })
-                .whereNull('deletedAt')
+                .whereNull('deleted_at')
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
@@ -51,7 +51,7 @@ module.exports = app => {
     const get = (req, res) => {
         app.db('users')
             .select('id', 'name', 'email', 'admin')
-            .whereNull('deletedAt')
+            .whereNull('deleted_at')
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
     }
@@ -60,7 +60,7 @@ module.exports = app => {
         app.db('users')
             .select('id', 'name', 'email', 'admin')
             .where({ id: req.params.id })
-            .whereNull('deletedAt')
+            .whereNull('deleted_at')
             .first()
             .then(user => res.json(user))
             .catch(err => res.status(500).send(err))
@@ -68,11 +68,11 @@ module.exports = app => {
 
     const remove = async (req, res) => {
         try {
-            const articles = await app.db('articles').where({ userId: req.params.id })
+            const articles = await app.db('articles').where({ user_id: req.params.id })
             notExistsOrError(articles, 'Usuário possui artigos.')
 
             const rowsUpdated = await app.db('users')
-                .update({ deletedAt: new Date() })
+                .update({ deleted_at: new Date() })
                 .where({ id: req.params.id })
             existsOrError(rowsUpdated, 'Usuário não foi encontrado.')
 
