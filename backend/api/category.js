@@ -67,11 +67,13 @@ module.exports = app => {
             return { ...category, path }
         })
 
-        categoriesWithPath.sort((a, b) => {
+        const byPathSize = (a, b) => {
             if (a.path < b.path) return -1
             if (a.path > b.path) return 1
             return 0
-        })
+        }
+
+        categoriesWithPath.sort(byPathSize)
 
         return categoriesWithPath
     }
@@ -102,7 +104,7 @@ module.exports = app => {
 
     const getTree = (req, res) => {
         app.db('categories')
-            .then(categories => res.json(toTree(categories)))
+            .then(categories => res.json(toTree(withPath(categories))))
             .catch(err => res.status(500).send(err))
     }
 
