@@ -1,3 +1,16 @@
+/*
+* - duplicate the file
+* - rename to .env
+* - include the database information
+*/
 module.exports = {
-    authSecret: ''
+  authSecret : 'token usado como chave de autenticacao',
+  mongoUrl : 'mongodb://localhost/knowledge_stats',
+  db : {
+    host: '127.0.0.1',
+    port: 5432,
+    database: 'knowledge',
+    user: 'postgres',
+    password: ' ',
+  }
 }
