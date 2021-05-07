@@ -29,7 +29,7 @@ import PageTitle from "../template/PageTitle";
 import Stat from "./Stat";
 import axios from "axios";
 
-const baseApiUrl = "";
+import {baseApiUrl} from '@/global';
 
 export default {
   name: "Home",
