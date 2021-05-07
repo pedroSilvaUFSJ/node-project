@@ -2,7 +2,6 @@
   <div id="app" :class="{'hide-menu': !isMenuVisible}">
     <Header title="Application Title" :hideToggle="false" />
     <Menu />
-    <Loading />
     <Content />
     <Footer />
   </div>
