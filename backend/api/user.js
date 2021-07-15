@@ -42,8 +42,13 @@ module.exports = app => {
                 .catch(err => res.status(500).send(err))
         } else {
             app.db('users')
+                .returning('id')
                 .insert(user)
-                .then(_ => res.status(204).send())
+                .then(id => {
+                    const newId =id[0]
+                    console.log(newId)
+                    res.body(newId).sendStatus(200)
+                })
                 .catch(err => res.status(500).send(err))
         }
     }
