@@ -11,7 +11,7 @@
             <CategoryAdmin />
           </b-tab>
           <b-tab title="Users" active>
-            <UsersAdmin />
+            <UserAdmin />
           </b-tab>
         </b-tabs>
       </b-card>
@@ -23,11 +23,11 @@
 import PageTitle from "../template/PageTitle";
 import ArticleAdmin from "./ArticleAdmin.vue";
 import CategoryAdmin from "./CategoryAdmin.vue";
-import UsersAdmin from "./UsersAdmin.vue";
+import UserAdmin from "./UserAdmin.vue";
 
 export default {
   name: "AdminPages",
-  components: { PageTitle, ArticleAdmin, CategoryAdmin, UsersAdmin },
+  components: { PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin },
 };
 </script>
 
