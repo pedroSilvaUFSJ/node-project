@@ -2,54 +2,48 @@
   <div class="category-admin">
     <b-form>
       <input id="category-id" type="hidden" v-model="category.id" />
-      <b-row>
-        <b-col xs="12">
-          <b-form-group label="Category Name:" label-for="category-name">
-            <b-form-input
-              id="category-name"
-              type="text"
-              v-model="category.name"
-              required
-              :readonly="mode === 'remove'"
-              placeholder="Inform the category's name..."
-            />
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row v-if="mode !== 'remove'">
-        <b-col xs="12">
-          <b-form-group label="Parent Category:" label-for="category-parentId">
-            <b-form-select
-              id="category-parentId"
-              :options="categories"
-              v-model="category.parent_id"
-              class="form-select"
-            />
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row v-else>
-        <b-col xs="12">
-          <b-form-group label="Parent Path:" label-for="category-path">
-            <b-form-input
-              id="category-path"
-              v-model="category.path"
-              readonly
-            />
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col xs="12" class="mt-3">
-          <b-button variant="primary" v-if="mode === 'save'" @click="save">
-            Save
-          </b-button>
-          <b-button variant="danger" v-if="mode === 'remove'" @click="remove">
-            Remove
-          </b-button>
-          <b-button class="ms-2" @click="reset">Cancelar</b-button>
-        </b-col>
-      </b-row>
+      <b-form-group label="Category Name:" label-for="category-name">
+        <b-form-input
+          id="category-name"
+          type="text"
+          v-model="category.name"
+          required
+          :readonly="mode === 'remove'"
+          placeholder="Inform the category's name..."
+        />
+      </b-form-group>
+      <b-form-group label="Parent Category:" label-for="category-parent">
+        <b-form-select
+          id="category-parent"
+          :options="categories"
+          v-model="category.parent_id"
+          class="form-select"
+          v-if="mode !== 'remove'"
+        />
+        <b-form-input
+          v-else
+          id="category-parent"
+          v-model="category.path"
+          readonly
+        />
+      </b-form-group>
+      <b-button
+        variant="primary"
+        v-if="mode === 'save'"
+        @click="save"
+        class="mt-2"
+      >
+        Save
+      </b-button>
+      <b-button
+        variant="danger"
+        v-if="mode === 'remove'"
+        @click="remove"
+        class="mt-2"
+      >
+        Remove
+      </b-button>
+      <b-button class="ms-2 mt-2" @click="reset">Cancelar</b-button>
     </b-form>
     <hr />
     <b-table hover striped :items="categories" :fields="fields">
