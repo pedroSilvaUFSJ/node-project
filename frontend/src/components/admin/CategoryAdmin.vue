@@ -105,7 +105,6 @@ export default {
           this.reset();
         })
         .catch((err) => {
-          console.log(err);
           showError(err);
         });
     },

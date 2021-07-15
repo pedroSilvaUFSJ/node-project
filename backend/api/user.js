@@ -9,7 +9,13 @@ module.exports = app => {
     }
 
     const save = async (req, res) => {
-        const user = { ...req.body }
+        const user = {
+            id: req.body.id,
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword,
+        }
         if (req.params.id) user.id = req.params.id
 
         if (!req.originalUrl.startsWith('/users')) user.admin = false
@@ -45,7 +51,7 @@ module.exports = app => {
                 .returning('id')
                 .insert(user)
                 .then(id => {
-                    const newId =id[0]
+                    const newId = id[0]
                     console.log(newId)
                     res.body(newId).sendStatus(200)
                 })
