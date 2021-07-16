@@ -29,10 +29,8 @@
 </template>
 
 <script>
-import PageTitle from "../template/PageTitle.vue";
 export default {
   name: "ArticleItem",
-  components: { PageTitle },
   props: ["article"],
 };
 </script>

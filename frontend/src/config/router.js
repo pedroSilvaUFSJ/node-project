@@ -11,8 +11,8 @@ Vue.use(VueRouter)
 const routes = [
     { name: 'home', path: '/', component: Home },
     { name: 'adminPages', path: '/admin', component: AdminPages, meta: { requiresAdmin: true } },
-    { name: 'articlesByCategory', path: '/categories/:id/articles', component: ArticlesByCategory, meta: { requiresAdmin: false } },
-    { name: 'articleById', path: '/articles/:id', component: ArticleById, meta: { requiresAdmin: false } }
+    { name: 'articlesByCategory', path: '/categories/:id/articles', component: ArticlesByCategory },
+    { name: 'articleById', path: '/articles/:id', component: ArticleById }
 ]
 
 const router = new VueRouter({ mode: 'history', routes })

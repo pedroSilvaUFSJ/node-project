@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import "highlightjs/styles/dracula.css";
+import hljs from "highlightjs/highlight.pack";
 import { baseApiUrl } from "@/global";
 import axios from "axios";
 import PageTitle from "../template/PageTitle.vue";
@@ -29,6 +31,11 @@ export default {
   },
   mounted() {
     this.getArticle();
+  },
+  update() {
+    document.querySelectorAll(".article-content pre").forEach((e) => {
+      hljs.highlightBlock(e)
+    });
   },
 };
 </script>

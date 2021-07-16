@@ -1,7 +1,7 @@
 <template>
     <div class="stat">
         <div class="stat-icon">
-            <i :class="icon" :style="style"></i>
+            <em :class="icon" :style="style"></em>
         </div>
         <div class="stat-info">
             <span class="stat-title">{{ title }}</span>
@@ -40,7 +40,7 @@ export default {
         align-items: center;
     }
 
-    .stat-icon i {
+    .stat-icon em {
         font-size: 5rem;
     }
 

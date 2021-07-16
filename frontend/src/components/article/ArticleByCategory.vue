@@ -38,9 +38,7 @@ export default {
   methods: {
     getCategory() {
       const url = `${baseApiUrl}/categories/${this.category.id}`;
-      axios(url).then(({ data }) => {
-        this.category = data;
-      });
+      axios(url).then(({ data }) => (this.category = data));
     },
     getArticles() {
       const url = `${baseApiUrl}/categories/${this.category.id}/articles?page=${this.page}`;
@@ -49,6 +47,17 @@ export default {
         this.page++;
         if (data.length === 0) this.loadMore = false;
       });
+    },
+  },
+  watch: {
+    $route(to) {
+      this.category.id = to.params.id;
+      this.articles = [];
+      this.page = 1;
+      this.loadMore = true;
+
+      this.getCategory();
+      this.getArticles();
     },
   },
   mounted() {

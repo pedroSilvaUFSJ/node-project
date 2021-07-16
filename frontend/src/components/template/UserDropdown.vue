@@ -5,13 +5,13 @@
       <div class="user-dropdown-img">
         <Gravatar :email="user.email" alt="User" />
       </div>
-      <i class="fa fa-angle-down"></i>
+      <em class="fa fa-angle-down"></em>
     </div>
     <div class="user-dropdown-content">
       <router-link to="/admin" v-if="user.admin">
-        <i class="fa fa-cogs"></i> Administração
+        <em class="fa fa-cogs"></em> Administration
       </router-link>
-      <a href @click.prevent="logout"><i class="fa fa-sign-out"></i> Sair</a>
+      <a href @click.prevent="logout"><em class="fa fa-sign-out"></em> Logout</a>
     </div>
   </div>
 </template>
