@@ -32,10 +32,8 @@ export default {
   mounted() {
     this.getArticle();
   },
-  update() {
-    document.querySelectorAll(".article-content pre").forEach((e) => {
-      hljs.highlightBlock(e)
-    });
+  updated() {
+    document.querySelectorAll(".article-content pre.ql-syntax").forEach((e) => hljs.highlightBlock(e));
   },
 };
 </script>
