@@ -51,7 +51,7 @@ export default {
     },
   },
   mounted() {
-   this.$refs.tree.$on("node:selected", this.onNodeSelect);
+    this.$refs.tree.$on("node:selected", this.onNodeSelect);
   },
 };
 </script>

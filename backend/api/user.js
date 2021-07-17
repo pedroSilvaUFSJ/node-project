@@ -26,7 +26,7 @@ module.exports = app => {
             existsOrError(user.email, 'E-mail not given')
             existsOrError(user.password, 'Password not given')
             existsOrError(user.confirmPassword, 'Confirming password invalid')
-            equalsOrError(user.password, user.confirmPassword, `Password don't match`)
+            equalsOrError(user.password, user.confirmPassword, `The passwords haven't matched`)
 
             const userFromDB = await app.db('users').where({ email: user.email }).first()
             if (!user.id) {
@@ -50,11 +50,7 @@ module.exports = app => {
             app.db('users')
                 .returning('id')
                 .insert(user)
-                .then(id => {
-                    const newId = id[0]
-                    console.log(newId)
-                    res.body(newId).sendStatus(200)
-                })
+                .then(ids => res.status(200).send(ids.join(',')))
                 .catch(err => res.status(500).send(err))
         }
     }
