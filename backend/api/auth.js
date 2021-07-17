@@ -34,7 +34,7 @@ module.exports = app => {
             if (userData) {
                 const token = jwt.decode(userData.token, authSecret)
                 if (new Date(token.exp * 1000) > new Date()) {
-                    const newToken = jwt.encode(payload, authSecret)
+                    const newToken = jwt.encode(userData, authSecret)
                     return res.send(newToken)
                 }
             }
@@ -44,6 +44,7 @@ module.exports = app => {
              * - wrong token
              * - expired token
              */
+            res.status(400).send(e.toString())
         }
         res.send(null)
     }
